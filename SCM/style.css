@@ -1,1 +1,95 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #2b5876, #4e4376);
+    color: #fefefe;
+    padding: 20px;
+}
+
+/* Main Section Styling */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Styling */
+section {
+    margin-bottom: 20px;
+}
+
+section h1, section h2 {
+    color: #ffe600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+section p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* List Styling */
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 25px;
+    font-weight: 500;
+}
+
+ul li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #ffe600;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    section h1, section h2 {
+        font-size: 1.5rem;
+    }
+
+    ul li {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    section h1, section h2 {
+        font-size: 1.2rem;
+    }
+
+    section p, ul li {
+        font-size: 0.8rem;
+    }
+}
 
