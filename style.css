@@ -41,14 +41,14 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    color: #fff;
+    color: #ff6347; /* Vibrant color for nav items */
     font-weight: bold;
     font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #ff6347; /* Hot tomato color */
+    color: #fff; /* Hover color */
 }
 
 /* Header */
@@ -135,7 +135,7 @@ ul li:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 30px;
+    margin-top: 40px; /* Increased margin for spacing */
 }
 
 table th, table td {
