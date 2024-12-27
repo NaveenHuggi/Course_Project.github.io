@@ -8,21 +8,18 @@
 /* Global Styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f0f0f0; /* Light gray background for better contrast */
+  background-color: #fff;
   color: #333;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* Navigation Bar */
 nav {
-  background-color: #ff6347; /* Vibrant orange for the navbar */
+  background-color: #f0f0f0; /* Light gray background for a clean look */
   padding: 15px;
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -35,25 +32,25 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between; /* Even spacing for navigation items */
+  padding: 0;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #fff; /* White text on orange background */
+  color: #333; /* Dark gray for readability */
   font-weight: bold;
   font-size: 1.2rem;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #fff; /* Hover color remains white for better readability */
+  color: #ff6347; /* Vibrant orange hover color for emphasis */
 }
 
 /* Header */
 header {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #f0f0f0; /* Consistent light gray background */
   padding: 50px 30px;
   border-radius: 15px;
   text-align: center;
@@ -65,26 +62,22 @@ header {
 
 header h1 {
   font-size: 3rem;
-  color: #ff6347;
+  color: #333; /* Dark gray for strong presence */
   margin-bottom: 10px;
 }
 
 header p {
   font-size: 1.5rem;
-  color: #fff;
+  color: #666; /* Lighter gray for body text */
   margin: 5px 0;
 }
 
-/* Main Content Section */
+/* Main Content */
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
   max-width: 900px;
   width: 100%;
-  margin-top: 100px;
+  margin: 0 auto; /* Center content horizontally on larger screens */
 }
 
 /* Section */
@@ -96,39 +89,35 @@ section {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   margin-top: 30px;
-  color: #333;
 }
 
-section h1 {
-  font-size: 2rem;
-  color: #ff6347;
+section h1,
+section h2 {
+  color: #333; /* Dark gray for headings */
   margin-bottom: 1rem;
   text-align: center;
 }
 
-section h2 {
-  font-size: 1.8rem;
-  color: #ff6347;
-  margin-top: 1rem;
+section h1 {
+  font-size: 2rem;
 }
 
-/* List Items */
+section h2 {
+  font-size: 1.8rem;
+}
+
+section p {
+  color: #666; /* Lighter gray for body text */
+  line-height: 1.5; /* Improved readability */
+}
+
 ul {
   list-style: none;
   padding: 0;
 }
 
 ul li {
-  background-color: #f9f9f9;
   margin-bottom: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-ul li:hover {
-  background-color: #ff6347;
-  color: #fff;
 }
 
 /* Table */
@@ -138,57 +127,17 @@ table {
   margin-top: 40px; /* Increased margin for spacing */
 }
 
-table th, table td {
+table th,
+table td {
   padding: 15px;
   text-align: left;
   border: 1px solid #ddd;
 }
 
 table th {
-  background-color: #ff6347;
-  color: #fff;
+  background-color: #f0f0f0; /* Light gray for table header */
+  color: #333; /* Dark gray for table header text */
 }
 
 table tr:nth-child(even) {
   background-color: #f9f9f9;
-}
-
-table tr:hover {
-  background-color: #ffcc99;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 1rem;
-  color: #555;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  body {
-    padding: 20px;
-  }
-
-  header h1 {
-    font-size: 2.2rem;
-  }
-
-  nav ul {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  section {
-    padding: 1.5rem;
-  }
-
-  section h1 {
-    font-size: 1.8rem;
-  }
-
-  table th, table td {
-    padding: 10px;
-  }
-}
