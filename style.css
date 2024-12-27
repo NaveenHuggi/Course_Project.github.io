@@ -8,7 +8,7 @@
 /* Global Styles */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #fff;
+  background-color: #f0f0f0; /* Light gray background for better contrast */
   color: #333;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@ body {
 
 /* Navigation Bar */
 nav {
-  background-color: #f0f0f0; /* Light gray background for a clean look */
+  background-color: #ff6347; /* Vibrant orange for the navbar */
   padding: 15px;
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -32,25 +32,25 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  justify-content: space-between; /* Even spacing for navigation items */
-  padding: 0;
+  justify-content: center;
+  gap: 20px;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #333; /* Dark gray for readability */
+  color: #fff; /* White text on orange background */
   font-weight: bold;
   font-size: 1.2rem;
-  transition: color 0.3s ease;
 }
 
+/* Removing hover effect for navbar items */
 nav ul li a:hover {
-  color: #ff6347; /* Vibrant orange hover color for emphasis */
+  color: #fff; /* Maintain the same color on hover */
 }
 
 /* Header */
 header {
-  background-color: #f0f0f0; /* Consistent light gray background */
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 50px 30px;
   border-radius: 15px;
   text-align: center;
@@ -62,22 +62,26 @@ header {
 
 header h1 {
   font-size: 3rem;
-  color: #333; /* Dark gray for strong presence */
+  color: #ff6347;
   margin-bottom: 10px;
 }
 
 header p {
   font-size: 1.5rem;
-  color: #666; /* Lighter gray for body text */
+  color: #fff;
   margin: 5px 0;
 }
 
-/* Main Content */
+/* Main Content Section */
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   max-width: 900px;
   width: 100%;
-  margin: 0 auto; /* Center content horizontally on larger screens */
+  margin-top: 100px;
 }
 
 /* Section */
@@ -89,35 +93,39 @@ section {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   margin-top: 30px;
-}
-
-section h1,
-section h2 {
-  color: #333; /* Dark gray for headings */
-  margin-bottom: 1rem;
-  text-align: center;
+  color: #333;
 }
 
 section h1 {
   font-size: 2rem;
+  color: #ff6347;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 section h2 {
   font-size: 1.8rem;
+  color: #ff6347;
+  margin-top: 1rem;
 }
 
-section p {
-  color: #666; /* Lighter gray for body text */
-  line-height: 1.5; /* Improved readability */
-}
-
+/* List Items */
 ul {
   list-style: none;
   padding: 0;
 }
 
 ul li {
+  background-color: #f0f0f0; /* Light gray background */
   margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd; /* Subtle border for visual separation */
+}
+
+/* Removing hover effect for list items */
+ul li:hover {
+  background-color: #f0f0f0; /* Maintain the same background color on hover */
 }
 
 /* Table */
@@ -127,17 +135,57 @@ table {
   margin-top: 40px; /* Increased margin for spacing */
 }
 
-table th,
-table td {
+table th, table td {
   padding: 15px;
   text-align: left;
   border: 1px solid #ddd;
 }
 
 table th {
-  background-color: #f0f0f0; /* Light gray for table header */
-  color: #333; /* Dark gray for table header text */
+  background-color: #ff6347;
+  color: #fff;
 }
 
 table tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #ffcc99;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  section {
+    padding: 1.5rem;
+  }
+
+  section h1 {
+    font-size: 1.8rem;
+  }
+
+  table th, table td {
+    padding: 10px;
+  }
+}
