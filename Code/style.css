@@ -3,8 +3,8 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: #f4f4f4;  /* Light background */
+    color: #333333;  /* Dark text */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,9 +14,9 @@ body {
 .container {
     max-width: 1200px;
     padding: 20px;
-    background-color: #2e2e2e;
+    background-color: #ffffff;  /* Light container background */
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Lighter shadow */
 }
 
 header {
@@ -27,20 +27,20 @@ header {
 header h1 {
     font-size: 2.5rem;
     margin: 0;
-    color: #ff6f61;
+    color: #ff6f61;  /* Keep the same accent color */
 }
 
 header p {
     font-size: 1.2rem;
-    color: #aaaaaa;
+    color: #666666;  /* Lighter text */
 }
 
 .code-section {
     overflow-x: auto;
-    background-color: #1e1e1e;
+    background-color: #f4f4f4;  /* Light background for code block */
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #444;
+    border: 1px solid #ccc;  /* Lighter border */
 }
 
 pre {
@@ -51,30 +51,29 @@ pre {
 
 code {
     font-family: 'Fira Code', monospace;
-    color: #d4d4d4;
+    color: #333333;  /* Dark text for code */
     background-color: transparent;
 }
 
 /* Syntax Highlighting */
 .cpp {
-    color: #569cd6; /* Default */
+    color: #1e90ff; /* Default blue */
 }
 .cpp .keyword {
-    color: #c586c0; /* Keywords */
+    color: #a28fd0; /* Purple for keywords */
 }
 .cpp .string {
-    color: #ce9178; /* Strings */
+    color: #d1664d; /* Soft red for strings */
 }
 .cpp .function {
-    color: #dcdcaa; /* Functions */
+    color: #7d7d7d; /* Grey for functions */
 }
 .cpp .comment {
-    color: #6a9955; /* Comments */
+    color: #5a7e3b; /* Dark green for comments */
 }
 
 /* Code Block Hover */
 .code-section:hover {
-    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.8);
+    box-shadow: 0 8px 25px rgba(255, 111, 97, 0.8);  /* Maintain hover effect */
     transition: box-shadow 0.3s ease;
 }
-
