@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Summary</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Algorithms Used</h1>
+        <ul class="algorithms-list">
+            <li>Quick Sort</li>
+            <li>Heap Sort</li>
+            <li>Floyd-Warshall</li>
+            <li>Greedy Algorithm for Stock Distribution</li>
+            <li>Randomization Algorithm</li>
+        </ul>
+
+        <h2>Details of Algorithms</h2>
+        <div class="algorithm">
+            <h3>Quick Sort</h3>
+            <p><strong>Purpose:</strong> To sort manufacturers based on attributes such as stock or demand.</p>
+            <p><strong>Function:</strong></p>
+            <ul>
+                <li>Recursively partitions the array using a pivot.</li>
+                <li>Ensures the array is sorted in ascending or descending order as needed.</li>
+                <li>Facilitates efficient stock allocation.</li>
+            </ul>
+        </div>
+
+        <div class="algorithm">
+            <h3>Heap Sort</h3>
+            <p><strong>Purpose:</strong> To organize suppliers into a max heap for stock allocation.</p>
+            <p><strong>Function:</strong></p>
+            <ul>
+                <li>Builds a max heap to ensure the supplier with the largest stock is at the root.</li>
+                <li>Removes and assigns the root iteratively, ensuring prioritized allocation.</li>
+            </ul>
+        </div>
+
+        <div class="algorithm">
+            <h3>Floyd-Warshall</h3>
+            <p><strong>Purpose:</strong> To compute shortest paths between all pairs of distributors and wholesalers.</p>
+            <p><strong>Function:</strong></p>
+            <ul>
+                <li>Utilizes a dynamic programming approach to calculate the shortest distance between nodes.</li>
+                <li>Produces a distance matrix for optimal routing of goods.</li>
+            </ul>
+        </div>
+
+        <div class="algorithm">
+            <h3>Greedy Algorithm for Stock Distribution</h3>
+            <p><strong>Purpose:</strong> To distribute stock from wholesalers to retailers, prioritizing high-demand retailers.</p>
+            <p><strong>Function:</strong></p>
+            <ul>
+                <li>Sorts retailers by descending demand.</li>
+                <li>Allocates stock based on available inventory and retailer demand.</li>
+                <li>Stops once stocks are depleted or all demands are met.</li>
+            </ul>
+        </div>
+
+        <div class="algorithm">
+            <h3>Randomization Algorithm</h3>
+            <p><strong>Purpose:</strong> To simulate real-world variability by assigning random demand to retailers.</p>
+            <p><strong>Function:</strong></p>
+            <ul>
+                <li>Generates random demand values within a specified range for retailers.</li>
+                <li>Adds unpredictability to the demand scenario.</li>
+            </ul>
+        </div>
+
+        <h2>Algorithm Efficiency</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Time Complexity</th>
+                    <th>Efficiency Analysis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Quick Sort</td>
+                    <td>O(n log n) (average case)</td>
+                    <td>Efficient for sorting manufacturers; handles larger and random  datasets effectively.</td>
+                </tr>
+                <tr>
+                    <td>Heap Sort</td>
+                    <td>O(n log n)</td>
+                    <td>Optimal for prioritizing suppliers with highest order of stock.</td>
+                </tr>
+                <tr>
+                    <td>Floyd-Warshall</td>
+                    <td>O(n³)</td>
+                    <td>Suitable for small to medium-sized supply chain networks; computes all-pairs shortest paths.</td>
+                </tr>
+                <tr>
+                    <td>Greedy Algorithm</td>
+                    <td>O(n log n) (for sorting)</td>
+                    <td>Efficiently prioritizes high-demand retailers, ensuring optimal allocation.</td>
+                </tr>
+                <tr>
+                    <td>Randomization</td>
+                    <td>O(n)</td>
+                    <td>Simulates variability in retailer demand.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
 
