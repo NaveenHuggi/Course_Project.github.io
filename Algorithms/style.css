@@ -9,20 +9,30 @@ body, h1, h2, h3, p, ul, li {
 body {
     font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
-    background-color: #ffffff;  /* White background */
-    color: #333;  /* Dark text for contrast */
+    background-color: #f4f7fb;  /* Soft light background for a clean canvas */
+    color: #333;  /* Dark text for readability */
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Container Styling */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.9);  /* Slight transparency for subtle background */
+    margin: 30px auto;
+    padding: 35px;
+    background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);  /* Soft blur effect for glassmorphism */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);  /* Glassmorphism with blurred background */
+    transition: transform 0.3s ease-out;
+}
+
+/* Hover effect for container */
+.container:hover {
+    transform: scale(1.02);  /* Slight zoom-in effect */
 }
 
 /* Header Styling */
@@ -30,23 +40,29 @@ h1 {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 20px;
-    color: #333;  /* Dark text for contrast */
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    color: #ff6347;  /* Bold red color */
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for heading */
+h1:hover {
+    color: #ff4500;  /* Darker red on hover */
 }
 
 h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
     color: #444;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 h3 {
     font-size: 2rem;
     margin-bottom: 10px;
     color: #555;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 p, li {
@@ -66,11 +82,13 @@ li {
     margin: 12px 0;
     padding-left: 15px;
     position: relative;
+    font-size: 1.1rem;
+    color: #666;
 }
 
 li::before {
     content: '\2022';
-    color: #555;  /* Dark color for list items */
+    color: #ff6347;  /* Red bullet points */
     font-size: 1.5rem;
     position: absolute;
     left: -25px;
@@ -87,27 +105,27 @@ table {
 }
 
 table th, table td {
-    padding: 12px 18px;
-    border: 1px solid #ddd;  /* Light gray border */
+    padding: 15px 20px;
+    border: 1px solid #ddd;
     text-align: left;
-    color: #333;  /* Dark text for readability */
+    color: #333;
     font-size: 1.1rem;
 }
 
 table th {
-    background-color: #f4f4f4;  /* Light gray for table header */
-    color: #333;
+    background: linear-gradient(135deg, #ff6347, #ff7f50);  /* Bold gradient for header */
+    color: white;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 table tr:nth-child(even) {
-    background-color: #fafafa;  /* Subtle gray for even rows */
+    background: #fafafa;
 }
 
 table tr:hover {
-    background-color: #f0f0f0;  /* Slight hover effect for rows */
+    background-color: #ffefdb;  /* Soft yellow hover effect */
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -117,7 +135,7 @@ button {
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    background-color: #4CAF50;  /* Green background */
+    background: linear-gradient(135deg, #ff6347, #ff7f50);  /* Gradient button */
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -125,9 +143,10 @@ button {
     transition: all 0.3s ease;
 }
 
+/* Button Hover Effect */
 button:hover {
     transform: scale(1.05);
-    background-color: #45a049;  /* Darker green on hover */
+    background: linear-gradient(135deg, #ff4500, #ff6347);  /* Darker gradient on hover */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -141,17 +160,28 @@ footer {
 }
 
 footer a {
-    color: #4CAF50;  /* Green for footer links */
+    color: #ff6347;  /* Red color for footer links */
     text-decoration: none;
     font-weight: bold;
 }
 
+/* Footer Link Hover */
 footer a:hover {
     text-decoration: underline;
 }
 
 /* Hover Effects for Links */
 a:hover {
-    color: #333;  /* Dark color on hover for all links */
+    color: #ff6347;  /* Red on hover for all links */
     text-decoration: underline;
+}
+
+/* Card Hover Animation for Containers */
+.container {
+    transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: translateY(-10px);  /* Smooth lift effect on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);  /* Stronger shadow on hover */
 }
