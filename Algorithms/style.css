@@ -9,10 +9,9 @@ body, h1, h2, h3, p, ul, li {
 body {
     font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff677d);
-    color: #fff;
+    background-color: #ffffff;  /* White background */
+    color: #333;  /* Dark text for contrast */
     overflow-x: hidden;
-    animation: gradientBackground 15s ease infinite;  /* Animated gradient background */
 }
 
 /* Container Styling */
@@ -20,10 +19,10 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);  /* Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.9);  /* Slight transparency for subtle background */
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);  /* Soft blur effect for glassmorphism */
 }
 
 /* Header Styling */
@@ -31,23 +30,23 @@ h1 {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 20px;
-    color: #ffcccb;
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    color: #333;  /* Dark text for contrast */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
     letter-spacing: 1px;
 }
 
 h2 {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #ffb6c1;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    color: #444;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 h3 {
     font-size: 2rem;
     margin-bottom: 10px;
-    color: #ffa7a7;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    color: #555;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 p, li {
@@ -71,7 +70,7 @@ li {
 
 li::before {
     content: '\2022';
-    color: #ff89a2;
+    color: #555;  /* Dark color for list items */
     font-size: 1.5rem;
     position: absolute;
     left: -25px;
@@ -83,33 +82,33 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 30px;
-    background: rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     border-radius: 10px;
 }
 
 table th, table td {
     padding: 12px 18px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid #ddd;  /* Light gray border */
     text-align: left;
-    color: #fff;
+    color: #333;  /* Dark text for readability */
     font-size: 1.1rem;
 }
 
 table th {
-    background: rgba(255, 105, 135, 0.8);
-    color: #fff;
+    background-color: #f4f4f4;  /* Light gray for table header */
+    color: #333;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 table tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: #fafafa;  /* Subtle gray for even rows */
 }
 
 table tr:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transition: background 0.3s ease-in-out;
+    background-color: #f0f0f0;  /* Slight hover effect for rows */
+    transition: background-color 0.3s ease-in-out;
 }
 
 /* Buttons */
@@ -118,19 +117,18 @@ button {
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    background: linear-gradient(135deg, #ff677d, #ff7eb3);
+    background-color: #4CAF50;  /* Green background */
     border: none;
-    border-radius: 50px;
+    border-radius: 25px;
     cursor: pointer;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    letter-spacing: 1px;
 }
 
 button:hover {
-    transform: scale(1.1);
-    background: linear-gradient(135deg, #ff758c, #ff89a2);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    background-color: #45a049;  /* Darker green on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Footer */
@@ -139,11 +137,11 @@ footer {
     padding: 15px 0;
     margin-top: 30px;
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #888;
 }
 
 footer a {
-    color: #ff89a2;
+    color: #4CAF50;  /* Green for footer links */
     text-decoration: none;
     font-weight: bold;
 }
@@ -152,15 +150,8 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Keyframes for Animated Background */
-@keyframes gradientBackground {
-    0% {
-        background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff677d);
-    }
-    50% {
-        background: linear-gradient(135deg, #ff758c, #ff7eb3, #ff677d);
-    }
-    100% {
-        background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff677d);
-    }
+/* Hover Effects for Links */
+a:hover {
+    color: #333;  /* Dark color on hover for all links */
+    text-decoration: underline;
 }
