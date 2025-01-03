@@ -15,11 +15,15 @@
         <section class="code-section">
             <pre><code class="cpp">
 #include<bits/stdc++.h>
+
 using namespace std;
 
 class Entity {
+
 public:
+
     struct Supplier {
+
         int id;
         long long contact_number;
         float quality;
@@ -27,6 +31,7 @@ public:
     };
 
     struct Manufacturer {
+
         int id;
         int contact_number;
         float cost;
@@ -35,21 +40,25 @@ public:
     };
 
     struct Distributor {
+
         int id;
         float stock;
         float wholesaler_distance[10][10];
     };
 
     struct Wholesaler {
+
         int id;
         float stock;
     };
 
     struct Retailer {
+
         int id;
         float demand;
         float stock_received;
     };
+
     Supplier suppliers[10];
     Manufacturer manufacturers[10];
     Distributor distributors[10];
@@ -81,39 +90,39 @@ public:
     void load_distributors_from_file();
     void floydWarshall(int dist[10][10]);
     void assignNearestDistributorToWholesalers();
+
+    //Preprocessing & Wholesaler Functions
+
     void writeDistributorToWholesalerMapping(const char *filename);
-
-
     void initializeWholesalers();
     void initializeWholesalers1();
     void loadWholesalersFromFile();
 
-    // Wholesaler methods
+    // Retailer methods
 
     void generate_and_store_retailers();
     void load_retailers_from_file();
     void distributeStockToRetailers();
-
-    // Retailer methods
-
     void writeWholesalerToRetailerMapping(const char *filename);
-    void quickSort(Retailer arr[], int low, int high);
-    int partition(Retailer arr[], int low, int high);
+    void merge(Retailer arr[], int left, int mid, int right);
+    void mergeSort(Retailer arr[], int left, int right);
     void showHighestDemandRetailer();
 };
 
 void Entity::generate_and_store_suppliers()
 {
-
         srand(time(NULL));
 
         FILE *file = fopen("supplier_data.txt", "w");
-        if(file == NULL) {
+
+        if(file == NULL)
+        {
             printf("Error opening file for writing!\n");
             return;
         }
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 10; i++)
+        {
             suppliers[i].id = i + 1;
             suppliers[i].contact_number = 1000000000LL + rand() % 9000000000LL;
             suppliers[i].quality = (float)rand() / RAND_MAX * 5.0;
@@ -125,16 +134,16 @@ void Entity::generate_and_store_suppliers()
             fprintf(file, "  Stock: %.2f\n\n", suppliers[i].stock);
         }
 
-
         fclose(file);
         printf("Supplier data saved to 'supplier_data.txt'\n\n");
 }
 
 void Entity::load_suppliers_from_file()
 {
-
         FILE *file = fopen("supplier_data.txt", "r");
-        if(file == NULL) {
+
+        if(file == NULL)
+        {
             printf("Error opening file for reading!\n");
             return;
         }
@@ -143,39 +152,37 @@ void Entity::load_suppliers_from_file()
         int i = 0;
 
         while (i < 10)
+        {
+            if(fgets(line, sizeof(line), file) == NULL) break;
+
+            if(sscanf(line, "Supplier %d:", &suppliers[i].id) != 1)
             {
-
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
-
-            if(sscanf(line, "Supplier %d:", &suppliers[i].id) != 1) {
                 printf("Error reading supplier ID on line %d\n", i + 1);
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
 
-            if(sscanf(line, "  Contact Number: %lld", &suppliers[i].contact_number) != 1) {
+            if(sscanf(line, "  Contact Number: %lld", &suppliers[i].contact_number) != 1)
+            {
                 printf("Error reading contact number on line %d\n", i + 1);
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
 
-            if(sscanf(line, "  Quality: %f", &suppliers[i].quality) != 1) {
+            if(sscanf(line, "  Quality: %f", &suppliers[i].quality) != 1)
+            {
                 printf("Error reading quality on line %d\n", i + 1);
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
 
-            if(sscanf(line, "  Stock: %f", &suppliers[i].stock) != 1) {
+            if(sscanf(line, "  Stock: %f", &suppliers[i].stock) != 1)
+            {
                 printf("Error reading stock on line %d\n", i + 1);
                 continue;
-
             }
 
             fgets(line, sizeof(line), file);
@@ -183,11 +190,12 @@ void Entity::load_suppliers_from_file()
         }
 
         fclose(file);
-    }
+
+        printf("Supplier Data Loaded\n\n");
+}
 
 void Entity::heapify(int n, int i)
 {
-
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -198,24 +206,26 @@ void Entity::heapify(int n, int i)
         if(right < n && suppliers[right].quality > suppliers[largest].quality)
             largest = right;
 
-        if(largest != i) {
+        if(largest != i)
+        {
             swap(suppliers[i], suppliers[largest]);
             heapify(n, largest);
         }
-    }
+}
 
 void Entity::buildMaxHeap(int n)
 {
         int startIdx = (n / 2) - 1;
 
-        for(int i = startIdx; i >= 0; i--) {
+        for(int i = startIdx; i >= 0; i--)
+        {
             heapify(n, i);
         }
+
 }
 
 void Entity::writeHeapToFile(const char *filename, int n)
 {
-
         FILE *file = fopen(filename, "w");
         if(file == NULL)
         {
@@ -234,33 +244,38 @@ void Entity::writeHeapToFile(const char *filename, int n)
         fclose(file);
 
         printf("Max heap data saved to '%s'\n\n", filename);
-    }
-
-float Entity::deleteRootAndReturnStock(int &n) {
-    if(n <= 0) {
-        printf("Heap is empty!\n");
-        return -1.0f;
-    }
-
-
-    float rootStock = suppliers[0].stock;
-
-    suppliers[0] = suppliers[n - 1];
-    n--;
-
-    heapify(n, 0);
-
-    return rootStock;
 }
+
+float Entity::deleteRootAndReturnStock(int &n)
+{
+        if(n <= 0)
+        {
+            printf("Heap is empty!\n");
+            return -1.0f;
+        }
+
+        float rootStock = suppliers[0].stock;
+
+        suppliers[0] = suppliers[n - 1];
+        n--;
+
+        heapify(n, 0);
+
+        return rootStock;
+}
+
 void Entity::generate_and_store_manufacturers()
 {
         srand(time(NULL));
+
         FILE *file = fopen("manufacturer_data.txt", "w");
+
         if(file == NULL)
         {
             printf("Error opening file for writing!\n");
             return;
         }
+
         for(int i = 0; i < 10; i++)
         {
             manufacturers[i].id = i + 1;
@@ -283,7 +298,8 @@ void Entity::generate_and_store_manufacturers()
 void Entity::load_manufacturers_from_file()
 {
         FILE *file = fopen("stock_added_manufacturer.txt", "r");
-        if(file == NULL) {
+        if(file == NULL)
+        {
             printf("Error opening file for reading!\n");
             return;
         }
@@ -292,24 +308,23 @@ void Entity::load_manufacturers_from_file()
         int i = 0;
         while (i < 10)
         {
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL)  break;
+
             if(sscanf(line, "Manufacturer %d:", &manufacturers[i].id) != 1)
-                {
+            {
                 printf("Error reading manufacturer ID on line %d\n", i + 1);
                 continue;
-                }
+            }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
+
             if(sscanf(line, "  Contact Number: %d", &manufacturers[i].contact_number) != 1)
             {
                 printf("Error reading contact number on line %d\n", i + 1);
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
 
             if(sscanf(line, "  Cost: %f", &manufacturers[i].cost) != 1)
             {
@@ -317,16 +332,16 @@ void Entity::load_manufacturers_from_file()
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL) break;
+
             if(sscanf(line, "  Incoming Stock: %f", &manufacturers[i].incoming_stock) != 1)
             {
                 printf("Error reading incoming stock on line %d\n", i + 1);
                 continue;
             }
 
-            if(fgets(line, sizeof(line), file) == NULL)
-                break;
+            if(fgets(line, sizeof(line), file) == NULL)  break;
+
             if(sscanf(line, "  Outgoing Stock: %f", &manufacturers[i].outgoing_stock) != 1)
             {
                 printf("Error reading outgoing stock on line %d\n", i + 1);
@@ -338,85 +353,81 @@ void Entity::load_manufacturers_from_file()
         }
 
         fclose(file);
-    }
+}
 
 void Entity::addStockToManufacturersAndSave(float stock)
 {
-    FILE *file = fopen("stock_added_manufacturer.txt", "w");
+        FILE *file = fopen("stock_added_manufacturer.txt", "w");
 
-    if(file == NULL) {
-        printf("Error opening file for writing!\n");
-        return;
-    }
+        if(file == NULL)
+        {
+            printf("Error opening file for writing!\n");
+            return;
+        }
 
-    for(int i = 0; i < 10; i++)
-    {
+        for(int i = 0; i < 10; i++)
+        {
+            manufacturers[i].incoming_stock += stock;
 
-        manufacturers[i].incoming_stock += stock;
+            fprintf(file, "Manufacturer %d:\n", manufacturers[i].id);
+            fprintf(file, "  Contact Number: %d\n", manufacturers[i].contact_number);
+            fprintf(file, "  Cost: %.2f\n", manufacturers[i].cost);
+            fprintf(file, "  Incoming Stock: %.2f\n", manufacturers[i].incoming_stock);
+            fprintf(file, "  Outgoing Stock: %.2f\n\n", manufacturers[i].outgoing_stock);
+        }
 
-        fprintf(file, "Manufacturer %d:\n", manufacturers[i].id);
-        fprintf(file, "  Contact Number: %d\n", manufacturers[i].contact_number);
-        fprintf(file, "  Cost: %.2f\n", manufacturers[i].cost);
-        fprintf(file, "  Incoming Stock: %.2f\n", manufacturers[i].incoming_stock);
-        fprintf(file, "  Outgoing Stock: %.2f\n\n", manufacturers[i].outgoing_stock);
-    }
-
-    fclose(file);
-    printf("Updated manufacturer data saved to 'stock_added_manufacturer.txt'\n");
+        fclose(file);
+        printf("Updated manufacturer data saved to 'stock_added_manufacturer.txt'\n\n");
 }
 
 void Entity::quickSortManufacturers(int low, int high)
 {
-
-    if(low < high)
+        if(low < high)
         {
-        int pi = partitionManufacturers(low, high);
+            int pi = partitionManufacturers(low, high);
 
-        quickSortManufacturers(low, pi - 1);
-        quickSortManufacturers(pi + 1, high);
-
+            quickSortManufacturers(low, pi - 1);
+            quickSortManufacturers(pi + 1, high);
         }
 }
 
-int Entity::partitionManufacturers(int low, int high) {
-    float pivot = manufacturers[high].cost;
-    int i = (low - 1);
+int Entity::partitionManufacturers(int low, int high)
+{
+        float pivot = manufacturers[high].cost;
+        int i = (low - 1);
 
-    for(int j = low; j <= high - 1; j++)
-    {
-        if(manufacturers[j].cost < pivot)
+        for(int j = low; j <= high - 1; j++)
         {
-            i++;
-            swap(manufacturers[i], manufacturers[j]);
+            if(manufacturers[j].cost < pivot)
+            {
+                i++;
+                swap(manufacturers[i], manufacturers[j]);
+            }
         }
-    }
-    swap(manufacturers[i + 1], manufacturers[high]);
-    return(i + 1);
-
+        swap(manufacturers[i + 1], manufacturers[high]);
+        return(i + 1);
 }
 
 void Entity::writeSortedManufacturersToFile(const char *filename)
 {
+        FILE *file = fopen(filename, "w");
+        if(file == NULL)
+        {
+            printf("Error opening file for writing!\n");
+            return;
+        }
 
-    FILE *file = fopen(filename, "w");
-    if(file == NULL)
-    {
-        printf("Error opening file for writing!\n");
-        return;
-    }
+        for(int i = 0; i < 10; i++)
+        {
+            fprintf(file, "Manufacturer %d:\n", manufacturers[i].id);
+            fprintf(file, "  Contact Number: %d\n", manufacturers[i].contact_number);
+            fprintf(file, "  Cost: %.2f\n", manufacturers[i].cost);
+            fprintf(file, "  Incoming Stock: %.2f\n", manufacturers[i].incoming_stock);
+            fprintf(file, "  Outgoing Stock: %.2f\n\n", manufacturers[i].outgoing_stock);
+        }
 
-    for(int i = 0; i < 10; i++)
-    {
-        fprintf(file, "Manufacturer %d:\n", manufacturers[i].id);
-        fprintf(file, "  Contact Number: %d\n", manufacturers[i].contact_number);
-        fprintf(file, "  Cost: %.2f\n", manufacturers[i].cost);
-        fprintf(file, "  Incoming Stock: %.2f\n", manufacturers[i].incoming_stock);
-        fprintf(file, "  Outgoing Stock: %.2f\n\n", manufacturers[i].outgoing_stock);
-    }
-
-    fclose(file);
-    printf("Sorted manufacturer data saved to '%s'\n", filename);
-
+        fclose(file);
+        printf("Sorted manufacturer data saved to '%s'\n\n", filename);
 }
 
 float Entity::outgoingstockoflowestcostmanufacturer()
@@ -428,413 +439,459 @@ float Entity::outgoingstockoflowestcostmanufacturer()
 
 void Entity::generate_and_store_distributors()
 {
-
-    srand(time(NULL));
-    FILE *file = fopen("distributor_data.txt", "w");
-    if(file == NULL)
-    {
-        printf("Error opening file for writing!\n");
-        return;
-    }
-
-    for(int i = 0; i < 10; i++)
-    {
-
-        distributors[i].id = i + 1;
-        distributors[i].stock = (float)rand() / RAND_MAX * 1000.0;
-
-        fprintf(file, "Distributor %d:\n", distributors[i].id);
-        fprintf(file, "  Stock: %.2f\n", distributors[i].stock);
-        fprintf(file, "  Distance to Wholesalers:\n");
-
-        for(int j = 0; j < 10; j++)
+        srand(time(NULL));
+        FILE *file = fopen("distributor_data.txt", "w");
+        if(file == NULL)
         {
-            if(i != j)
-            {
-                distributors[i].wholesaler_distance[i][j] = rand() % 100 + 1; // Random distance
-            }
-        else{
-                distributors[i].wholesaler_distance[i][j] = 0; // No self-distance
-            }
-
-            fprintf(file, "    To Wholesaler %d: %.2f\n", j + 1, distributors[i].wholesaler_distance[i][j]);
+            printf("Error opening file for writing!\n");
+            return;
         }
 
-        fprintf(file, "\n");
-    }
+        for(int i = 0; i < 10; i++)
+        {
+            distributors[i].id = i + 1;
+            distributors[i].stock = (float)rand() / RAND_MAX * 1000.0;
 
-    fclose(file);
+            fprintf(file, "Distributor %d:\n", distributors[i].id);
+            fprintf(file, "  Stock: %.2f\n", distributors[i].stock);
+            fprintf(file, "  Distance to Wholesalers:\n");
 
-    printf("Distributor data saved to 'distributor_data.txt'\n");
+            for(int j = 0; j < 10; j++)
+            {
+                if(i != j) distributors[i].wholesaler_distance[i][j] = rand() % 100 + 1; // Random distance
+
+                else distributors[i].wholesaler_distance[i][j] = 0; // No self-distance
+
+                fprintf(file, "    To Wholesaler %d: %.2f\n", j + 1, distributors[i].wholesaler_distance[i][j]);
+            }
+
+            fprintf(file, "\n");
+        }
+
+        fclose(file);
+        printf("Distributor data saved to 'distributor_data.txt'\n\n");
 }
 
 void Entity::load_distributors_from_file()
 {
-    FILE *file = fopen("distributor_data.txt", "r");
-    if(file == NULL)
-    {
-        printf("Error opening file for reading!\n");
-        return;
-    }
-
-    char line[100];
-    int i = 0;
-
-    while(i < 10)
+        FILE *file = fopen("distributor_data.txt", "r");
+        if(file == NULL)
         {
-
-        if(fgets(line, sizeof(line), file) == NULL)
-            break;
-        if(sscanf(line, "Distributor %d:", &distributors[i].id) != 1)
-            continue;
-
-        if(fgets(line, sizeof(line), file) == NULL)
-            break;
-        if(sscanf(line, "  Stock: %f", &distributors[i].stock) != 1)
-            continue;
-
-        if(fgets(line, sizeof(line), file) == NULL)
-            break;
-        for(int j = 0; j < 10; j++)
-        {
-            if(fgets(line, sizeof(line), file) == NULL)
-            break;
-            sscanf(line, "    To Wholesaler %d: %f", &j, &distributors[i].wholesaler_distance[i][j]);
+            printf("Error opening file for reading!\n");
+            return;
         }
 
-        i++;
-    }
+        char line[100];
+        int i = 0;
 
-    fclose(file);
+        while(i < 10)
+        {
+
+            if(fgets(line, sizeof(line), file) == NULL) break;
+
+            if(sscanf(line, "Distributor %d:", &distributors[i].id) != 1) continue;
+
+            if(fgets(line, sizeof(line), file) == NULL)  break;
+
+            if(sscanf(line, "  Stock: %f", &distributors[i].stock) != 1) continue;
+
+            if(fgets(line, sizeof(line), file) == NULL) break;
+
+            for(int j = 0; j < 10; j++)
+            {
+                if(fgets(line, sizeof(line), file) == NULL) break;
+
+                sscanf(line, "    To Wholesaler %d: %f", &j, &distributors[i].wholesaler_distance[i][j]);
+            }
+
+            i++;
+        }
+
+        fclose(file);
 }
 
 void Entity::floydWarshall(int dist[10][10])
 {
-    for(int k = 0; k < 10; k++) {
-        for(int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10; j++) {
-                if(dist[i][k] + dist[k][j] < dist[i][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
+        for(int k = 0; k < 10; k++)
+        {
+            for(int i = 0; i < 10; i++)
+            {
+                for(int j = 0; j < 10; j++)
+                {
+                    if(dist[i][k] + dist[k][j] < dist[i][j]) dist[i][j] = dist[i][k] + dist[k][j];
                 }
             }
         }
-    }
 }
 
 void Entity::assignNearestDistributorToWholesalers()
 {
-    bool distributorAssigned[10] = {false};
-    FILE *file = fopen("distributor_to_wholesaler_mapping.txt", "w");
-    if(file == NULL)
-    {
-        printf("Error opening file for writing mapping!\n");
-        return;
-    }
-
-    for (int w = 0; w < 10; w++)
+        bool distributorAssigned[10] = {false};
+        FILE *file = fopen("distributor_to_wholesaler_mapping.txt", "w");
+        if(file == NULL)
         {
-        float minDistance = FLT_MAX;
-        int selectedDistributor = -1;
+            printf("Error opening file for writing mapping!\n");
+            return;
+        }
 
-        for (int d = 0; d < 10; d++)
+        for (int w = 0; w < 10; w++)
         {
-            if(!distributorAssigned[d] && distributors[d].wholesaler_distance[d][w] < minDistance) {
+            float minDistance = FLT_MAX;
+            int selectedDistributor = -1;
+
+            for (int d = 0; d < 10; d++)
+            {
+                if(!distributorAssigned[d] && distributors[d].wholesaler_distance[d][w] < minDistance)
+                {
                 minDistance = distributors[d].wholesaler_distance[d][w];
                 selectedDistributor = d;
+                }
+            }
+
+            if(selectedDistributor != -1)
+            {
+                distributorAssigned[selectedDistributor] = true;
+                wholesalers[w].stock = distributors[selectedDistributor].stock;
+                fprintf(file, "Wholesaler %d is supplied by Distributor %d with stock %.2f\n",
+                w + 1, selectedDistributor + 1, wholesalers[w].stock);
             }
         }
 
-        if(selectedDistributor != -1)
-        {
-            distributorAssigned[selectedDistributor] = true;
-            wholesalers[w].stock = distributors[selectedDistributor].stock;
-            fprintf(file, "Wholesaler %d is supplied by Distributor %d with stock %.2f\n",
-                    w + 1, selectedDistributor + 1, wholesalers[w].stock);
-        }
-    }
-
-    fclose(file);
-
-    printf("Distributor-to-Wholesaler mapping saved to 'distributor_to_wholesaler_mapping.txt'\n");
+        fclose(file);
+        printf("Distributor-to-Wholesaler mapping saved to 'distributor_to_wholesaler_mapping.txt'\n\n");
 }
 
 void Entity::initializeWholesalers()
- {
-    for(int i = 0; i < 10; i++) {
-        wholesalers[i].id = i + 1;
-        wholesalers[i].stock = 0.0;
-    }
+{
+        for(int i = 0; i < 10; i++)
+        {
+            wholesalers[i].id = i + 1;
+            wholesalers[i].stock = 0.0;
+        }
 }
 
 void Entity::initializeWholesalers1()
 {
-    for(int i = 0; i < 10; i++) {
-        wholesalers[i].id = i + 1;
-        wholesalers[i].stock = 100.0;
-    }
+        for(int i = 0; i < 10; i++)
+        {
+            wholesalers[i].id = i + 1;
+            wholesalers[i].stock = 100.0;
+        }
 }
 
 void Entity::generate_and_store_retailers()
 {
+        srand(time(NULL));
+        FILE *file = fopen("retailer_data.txt", "w");
+        if(file == NULL)
+        {
+            printf("Error opening file for writing!\n");
+            return;
+        }
 
-    srand(time(NULL));
-    FILE *file = fopen("retailer_data.txt", "w");
-    if(file == NULL) {
-        printf("Error opening file for writing!\n");
-        return;
-    }
+        for(int i = 0; i < 10; i++)
+        {
+            retailers[i].id = i + 1;
+            retailers[i].demand = (float)(rand() % 100 + 50);
+            retailers[i].stock_received = 0.0;
+            fprintf(file, "Retailer %d:\n", retailers[i].id);
+            fprintf(file, "  Demand: %.2f\n", retailers[i].demand);
+            fprintf(file, "\n");
+        }
 
-    for(int i = 0; i < 10; i++)
-    {
-        retailers[i].id = i + 1;
-        retailers[i].demand = (float)(rand() % 100 + 50);
-        retailers[i].stock_received = 0.0;
-        fprintf(file, "Retailer %d:\n", retailers[i].id);
-        fprintf(file, "  Demand: %.2f\n", retailers[i].demand);
-        fprintf(file, "\n");
-    }
-
-    fclose(file);
-
-    printf("Retailer data saved to 'retailer_data.txt'\n");
+        fclose(file);
+        printf("Retailer data saved to 'retailer_data.txt'\n\n");
 }
 
 void Entity::load_retailers_from_file()
 {
+        FILE *file = fopen("retailer_data.txt", "r");
+        if(file == NULL)
+        {
+            printf("Error opening file for reading!\n");
+            return;
+        }
 
-    FILE *file = fopen("retailer_data.txt", "r");
-    if(file == NULL) {
-        printf("Error opening file for reading!\n");
-        return;
-    }
+        char line[100];
+        int i = 0;
 
-    char line[100];
-    int i = 0;
+        while (i < 10)
+        {
+            if (fgets(line, sizeof(line), file) == NULL) break;
 
-    while (i < 10) {
-        if (fgets(line, sizeof(line), file) == NULL) break;
-        if(sscanf(line, "Retailer %d:", &retailers[i].id) != 1) continue;
+            if(sscanf(line, "Retailer %d:", &retailers[i].id) != 1) continue;
 
-        if(fgets(line, sizeof(line), file) == NULL) break;
-        if(sscanf(line, "  Demand: %f", &retailers[i].demand) != 1) continue;
+            if(fgets(line, sizeof(line), file) == NULL) break;
 
-        retailers[i].stock_received = 0.0;
-        i++;
-    }
+            if(sscanf(line, "  Demand: %f", &retailers[i].demand) != 1) continue;
 
-    fclose(file);
+            retailers[i].stock_received = 0.0;
+
+            i++;
+        }
+
+        fclose(file);
 }
 
 void Entity::distributeStockToRetailers()
 {
+        sort(retailers, retailers + 10, [](const Retailer &a, const Retailer &b)
+        {
+            return a.demand > b.demand;
+        });
 
-    sort(retailers, retailers + 10, [](const Retailer &a, const Retailer &b) {
-        return a.demand > b.demand;
-    });
+        FILE *file = fopen("wholesaler_to_retailer_mapping.txt", "w");
+        if(file == NULL)
+        {
+            printf("Error opening file for writing mapping!\n");
+            return;
+        }
 
-    FILE *file = fopen("wholesaler_to_retailer_mapping.txt", "w");
-    if(file == NULL)
-    {
-        printf("Error opening file for writing mapping!\n");
-        return;
-    }
+        for(int w = 0; w < 10; w++)
+        {
+            fprintf(file, "Wholesaler %d:\n", wholesalers[w].id);
 
-    for(int w = 0; w < 10; w++)
-    {
-        fprintf(file, "Wholesaler %d:\n", wholesalers[w].id);
-
-        for(int r = 0; r < 10; r++) {
-            if(wholesalers[w].stock > 0 && retailers[r].demand > 0)
+            for(int r = 0; r < 10; r++)
             {
-                float allocatedStock = min(wholesalers[w].stock, retailers[r].demand);
-                wholesalers[w].stock -= allocatedStock;
-                retailers[r].demand -= allocatedStock;
-                retailers[r].stock_received += allocatedStock;
+                if(wholesalers[w].stock > 0 && retailers[r].demand > 0)
+                {
+                    float allocatedStock = min(wholesalers[w].stock, retailers[r].demand);
+                    wholesalers[w].stock -= allocatedStock;
+                    retailers[r].demand -= allocatedStock;
+                    retailers[r].stock_received += allocatedStock;
 
-                fprintf(file, "  Supplies %.2f stock to Retailer %d\n", allocatedStock, retailers[r].id);
+                    fprintf(file, "  Supplies %.2f stock to Retailer %d\n", allocatedStock, retailers[r].id);
+                }
             }
+
+            fprintf(file, "\n");
         }
 
-        fprintf(file, "\n");
-    }
-
-    fclose(file);
-
-    printf("Wholesaler-to-Retailer mapping saved to 'wholesaler_to_retailer_mapping.txt'\n");
+        fclose(file);
+        printf("Wholesaler-to-Retailer mapping saved to 'wholesaler_to_retailer_mapping.txt'\n\n");
 }
 
-
-void Entity::quickSort(Retailer arr[], int low, int high)
+void Entity::mergeSort(Retailer arr[], int left, int right)
 {
-    if(low < high) {
-        int pi = partition(arr, low, high);
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
-    }
+        if (left < right)
+        {
+            int mid = left + (right - left) / 2;
+
+            // Recursively split and sort
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, mid, right);
+        }
 }
 
-int Entity::partition(Retailer arr[], int low, int high)
- {
+void Entity::merge(Retailer arr[], int left, int mid, int right)
+{
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
 
-    float pivot = arr[high].demand;
-    int i = (low - 1);
-    for(int j = low; j <= high - 1; j++) {
-        if(arr[j].demand > pivot) {
-            i++;
-            swap(arr[i], arr[j]);
+        // Temporary arrays for left and right subarrays
+        Retailer* leftArr = new Retailer[n1];
+        Retailer* rightArr = new Retailer[n2];
+
+        for (int i = 0; i < n1; i++)
+            leftArr[i] = arr[left + i];
+        for (int j = 0; j < n2; j++)
+            rightArr[j] = arr[mid + 1 + j];
+
+        int i = 0, j = 0, k = left;
+
+        // Merge left and right subarrays
+        while (i < n1 && j < n2)
+        {
+            if (leftArr[i].demand >= rightArr[j].demand)
+            {
+                // Descending order
+                arr[k] = leftArr[i];
+                i++;
+            }
+            else
+            {
+                arr[k] = rightArr[j];
+                j++;
+            }
+
+            k++;
         }
-    }
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
+
+        // Copy any remaining elements of leftArr
+        while (i < n1)
+        {
+            arr[k] = leftArr[i];
+            i++;
+            k++;
+        }
+
+        // Copy any remaining elements of rightArr
+        while (j < n2)
+        {
+            arr[k] = rightArr[j];
+            j++;
+            k++;
+        }
+
+        // Free memory
+        delete[] leftArr;
+        delete[] rightArr;
 }
 
 void Entity::showHighestDemandRetailer()
 {
-
-    Retailer highest = retailers[0];
-    for(int i = 1; i < 10; i++) {
-        if(retailers[i].demand > highest.demand) {
-            highest = retailers[i];
+        Retailer highest = retailers[0];
+        for(int i = 1; i < 10; i++)
+        {
+            if(retailers[i].demand > highest.demand)
+            {
+                highest = retailers[i];
+            }
         }
-    }
-    cout << "\nRetailer with the highest demand:\n";
-    cout << "Retailer ID: " << highest.id << ", Demand: " << highest.demand << endl;
+        cout << "\nRetailer with the highest demand:\n\n";
+        cout << "Retailer ID: " << highest.id << ", Demand: " << highest.demand << endl;
 }
-
 
 int main()
 {
-    Entity entity;
-    float supplystock;
-    float distributor_stock;
+        Entity entity;
+        float supplystock;
+        float distributor_stock;
 
-    for(;;)
-    {
-        int choice;
-        printf("1-Supplier\n2-Manufacturer\n3-Distributor\n4-Wholesaler\n5-Retailer\n6-Customer\n");
-        scanf("%d",&choice);
-        switch(choice)
+        for(;;)
         {
-            case 1:
-                {
-                    entity.generate_and_store_suppliers();
-                    int choice1;
-                    printf("1-Supply Stock to Manufacturer\n2-Exit\n");
-                    scanf("%d",&choice1);
-                    switch(choice1)
+            int choice;
+            printf("Choose the Domain\n\n");
+            printf("1-Supplier\n2-Manufacturer\n3-Distributor\n4-Wholesaler\n5-Retailer\n6-Customer\n");
+            scanf("%d",&choice);
+            switch(choice)
+            {
+                case 1:
                     {
-                        case 1:
-                            {
-                                entity.load_suppliers_from_file();
-                                entity.buildMaxHeap(10);
-                                entity.writeHeapToFile("heapified_supplier_data.txt", 10);
-
-                                int heapSize = 10;
-                                supplystock = entity.deleteRootAndReturnStock(heapSize);
-                                printf("Stock Supplied is: %.2f\n", supplystock);
-                                break;
-                            }
-
-                        default:exit(0);
-                    }
-
-                }
-
-            case 2:
-                {
-                    entity.generate_and_store_manufacturers();
-                    entity.addStockToManufacturersAndSave(supplystock);
-                    int choice2;
-                    printf("1-Provide Final Goods to Distributor\n");
-                    scanf("%d",&choice2);
-                    switch(choice2)
-                    {
-                        case 1:
-                            {
-                                entity.load_manufacturers_from_file();
-                                entity.quickSortManufacturers(0, 9);
-                                entity.writeSortedManufacturersToFile("Sorted_manufacturer.txt");
-                                break;
-                            }
-
-                        default:exit(0);
-                    }
-                }
-
-            case 3:
-                {
-                    int choice3;
-                    printf("1-Distributors delivers the stocks\n");
-                    scanf("%d",&choice3);
-                    switch(choice3)
-                    {
-                        case 1:
-                            {
-                                entity.generate_and_store_distributors();
-                                entity.load_distributors_from_file();
-
-                                int dist[10][10];
-                                for(int i = 0; i < 10; i++)
+                        entity.generate_and_store_suppliers();
+                        int choice1;
+                        printf("1-Supply Stock to Manufacturer\n2-Exit\n\n");
+                        scanf("%d",&choice1);
+                        switch(choice1)
+                        {
+                            case 1:
                                 {
-                                    for(int j = 0; j < 10; j++)
-                                    {
-                                        dist[i][j] = entity.distributors[i].wholesaler_distance[i][j];
-                                    }
+                                    entity.load_suppliers_from_file();
+                                    entity.buildMaxHeap(10);
+                                    entity.writeHeapToFile("heapified_supplier_data.txt", 10);
+
+                                    int heapSize = 10;
+                                    supplystock = entity.deleteRootAndReturnStock(heapSize);
+                                    printf("Stock Supplied is: %.2f\n\n", supplystock);
+                                    break;
                                 }
-                                entity.floydWarshall(dist);
-                                entity.assignNearestDistributorToWholesalers();
-                            }
-                    }
-                }
 
-            case 4:
-                {
-                    int choice4;
-                    printf("1-Wholesalers gives to Retailers\n");
-                    scanf("%d",&choice4);
-                    switch(choice4)
-                    {
-                        case 1:
-                           {
-                                entity.initializeWholesalers1();
-                                entity.generate_and_store_retailers();
-                                entity.load_retailers_from_file();
-                                entity.distributeStockToRetailers();
-                           }
-                    }
-                }
+                            default:exit(0);
+                        }
 
-            case 5:
-                {
-                    int retailer_choice;
-                    printf("1-Retailer to Customers\n");
-                    switch (retailer_choice)
-                    {
-                       case 1:
-                           {
-                                entity.generate_and_store_retailers();
-                                entity.load_retailers_from_file();
-                                entity.distributeStockToRetailers();
-                                entity.quickSort(entity.retailers, 0, 9);
-                                entity.showHighestDemandRetailer();
-                                break;
-                           }
-
-                       default:printf("Invalid choice. Try again.\n");
-                       break;
-                     }
-                }
-
-            case 6:
-                {
-                    FILE *file = fopen("customer_options.txt", "w");
-                    if(file == NULL)
-                    {
-                        printf("Error opening file to write customer options!\n");
-                        break;
                     }
 
-                    const char *options[] =
+                case 2:
+                    {
+                        entity.generate_and_store_manufacturers();
+                        entity.addStockToManufacturersAndSave(supplystock);
+                        int choice2;
+                        printf("1-Provide Final Goods to Distributor\n2-Exit\n\n");
+                        scanf("%d",&choice2);
+                        switch(choice2)
+                        {
+                            case 1:
+                                {
+                                    entity.load_manufacturers_from_file();
+                                    entity.quickSortManufacturers(0, 9);
+                                    entity.writeSortedManufacturersToFile("Sorted_manufacturer.txt");
+                                    break;
+                                }
+
+                            default:exit(0);
+                        }
+                    }
+
+                case 3:
+                    {
+                        int choice3;
+                        printf("1-Distributors delivers the stocks\n2-Exit\n\n");
+                        scanf("%d",&choice3);
+                        switch(choice3)
+                        {
+                            case 1:
+                                {
+                                    entity.generate_and_store_distributors();
+                                    entity.load_distributors_from_file();
+
+                                    int dist[10][10];
+                                    for(int i = 0; i < 10; i++)
+                                    {
+                                        for(int j = 0; j < 10; j++)
+                                        {
+                                            dist[i][j] = entity.distributors[i].wholesaler_distance[i][j];
+                                        }
+                                    }
+                                    entity.floydWarshall(dist);
+                                    entity.assignNearestDistributorToWholesalers();
+                                    break;
+                                }
+                            default:exit(0);
+                        }
+                    }
+
+                case 4:
+                    {
+                        int choice4;
+                        printf("1-Wholesalers gives to Retailers\n2-Exit\n\n");
+                        scanf("%d",&choice4);
+                        switch(choice4)
+                        {
+                            case 1:
+                                {
+                                    entity.initializeWholesalers1();
+                                    entity.generate_and_store_retailers();
+                                    entity.load_retailers_from_file();
+                                    entity.distributeStockToRetailers();
+                                    break;
+                                }
+                            default:exit(0);
+                        }
+                    }
+
+                case 5:
+                    {
+                        int retailer_choice;
+                        printf("1-Retailer to Customers\n2-Exit\n\n");
+                        scanf("%d",&retailer_choice);
+                        switch (retailer_choice)
+                        {
+                            case 1:
+                                {
+                                    entity.generate_and_store_retailers();
+                                    entity.load_retailers_from_file();
+                                    entity.distributeStockToRetailers();
+                                    entity.mergeSort(entity.retailers, 0, 9);
+                                    entity.showHighestDemandRetailer();
+                                    break;
+                                }
+                            default:exit(0);
+                        }
+                    }
+
+                case 6:
+                    {
+                        FILE *file = fopen("customer_options.txt", "w");
+                        if(file == NULL)
+                        {
+                            printf("Error opening file to write customer options!\n");
+                            break;
+                        }
+
+                        const char *options[] =
                                     {
                                     "Kurta", "T-shirt", "Jeans", "Jacket", "Socks", "Shoes", "Hat", "Scarf", "Sweater", "Blazer",
                                     "Shorts", "Skirt", "Saree", "Salwar Kameez", "Dupatta", "Shirt", "Coat", "Trousers", "Leggings", "Cap",
@@ -843,52 +900,53 @@ int main()
                                     "Suit", "Gown", "Pajamas", "Nightwear", "Innerwear", "Thermal Wear", "Party Dress", "Office Wear", "Casual Wear", "Formal Wear"
                                     };
 
-                    for(int i = 0; i < 50; i++)
-                    {
-                        fprintf(file, "%d. %s\n", i + 1, options[i]);
-                    }
+                        for(int i = 0; i < 50; i++)
+                        {
+                            fprintf(file, "%d. %s\n", i + 1, options[i]);
+                        }
 
-                    fclose(file);
-                    printf("Customer options saved to 'customer_options.txt'.\n");
+                        fclose(file);
+                        printf("Customer options saved to 'customer_options.txt'.\n\n");
 
-                    FILE *readFile = fopen("customer_options.txt", "r");
-                    if(readFile == NULL)
-                    {
-                        printf("Error opening file to read customer options!\n");
+                        FILE *readFile = fopen("customer_options.txt", "r");
+                        if(readFile == NULL)
+                        {
+                            printf("Error opening file to read customer options!\n");
+                            break;
+                        }
+
+                        char line[100];
+                        printf("Available Options for Purchase:\n");
+
+                        while (fgets(line, sizeof(line), readFile))
+                        {
+                            printf("%s \n", line);
+                        }
+                        fclose(readFile);
+
+                        int choice;
+                        printf("\nEnter the number corresponding to the item you want to purchase: ");
+                        scanf("%d", &choice);
+
+                        if(choice >= 1 && choice <= 50)
+                        {
+                            printf("You have chosen to purchase: %s\n\n", options[choice - 1]);
+                        }
+                        else
+                        {
+                            printf("Invalid choice. Please select a valid option next time.\n");
+                        }
+
                         break;
                     }
 
-                    char line[100];
-                    printf("Available Options for Purchase:\n");
+                default:exit(0);
 
-                    while (fgets(line, sizeof(line), readFile))
-                    {
-                        printf("%s", line);
-                    }
-                    fclose(readFile);
-
-                    int choice;
-                    printf("\nEnter the number corresponding to the item you want to purchase: ");
-                    scanf("%d", &choice);
-
-                    if(choice >= 1 && choice <= 50)
-                    {
-                        printf("You have chosen to purchase: %s\n", options[choice - 1]);
-                    }
-                    else
-                    {
-                        printf("Invalid choice. Please select a valid option next time.\n");
-                    }
-
-                    break;
-                }
-
-            default:exit(0);
-
+            }
         }
-    }
     return 0;
 }
+
 
 
             </code></pre>
